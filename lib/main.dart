@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:goroutestudy/screen/1_screen.dart';
 import 'package:goroutestudy/screen/2_screen.dart';
 import 'package:goroutestudy/screen/3_screen.dart';
+import 'package:goroutestudy/screen/error_screen.dart';
 import 'package:goroutestudy/screen/home_screen.dart';
 
 void main() {
@@ -14,6 +15,9 @@ class _App extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     initialLocation: '/',
+    errorBuilder: (context, state) {
+      return ErrorScreen(error: state.error.toString());
+    },
     routes: [
       GoRoute(
         path: '/',
@@ -25,14 +29,13 @@ class _App extends StatelessWidget {
             routes: [
               GoRoute(
                 path: 'two',
+                name: TwoScreen.routeName,
                 builder: (_, state) => TwoScreen(),
-                routes: [
-                  GoRoute(
-                    path: 'three',
-                    name: ThreeScreen.routeName,
-                    builder: (_, state) => ThreeScreen(),
-                  ),
-                ]
+              ),
+              GoRoute(
+                path: 'three',
+                name: ThreeScreen.routeName,
+                builder: (_, state) => ThreeScreen(),
               ),
             ]
           ),
